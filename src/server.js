@@ -17,7 +17,7 @@ app.use("/", logger, globalRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
 
-const handleListening = () => console.log(`Server listening on port http://localhost:${PORT} 🚀`);
+
 
 // 3. App 외부에 개방하기
-app.listen(PORT, handleListening); 
+app.listen(PORT); 
