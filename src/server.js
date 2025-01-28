@@ -4,7 +4,6 @@ import globalRouter from "./routers/globalRouter.js";
 import userRouter from "./routers/userRouter.js";
 import videoRouter from "./routers/videoRouter.js";
 
-const PORT = 4000;
 // 1. App 만들기
 const app = express();
 
@@ -18,7 +17,4 @@ app.use(express.urlencoded({ extended : true}))
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
 
-
-
-// 3. App 외부에 개방하기
-app.listen(PORT); 
+export default app;
