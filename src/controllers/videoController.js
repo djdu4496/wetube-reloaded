@@ -4,16 +4,16 @@ import Video from "../models/Video.js";
 export const home = async (req, res) => {
     try {
         const videos = await Video.find({});
-        console.log(videos);
         res.render("home", {pageTitle: "Home", videos});
     }
     catch {
         return ers.render("server-error");
     }
 }
-export const watch = (req, res) => {
+export const watch = async (req, res) => {
     const { id } = req.params;
-    res.render("watch", {pageTitle: `Watching ${video.title}`});
+    const video = await Video.findById(id).exec();
+    res.render("watch", {pageTitle: `Watching ${video.title}`, video});
 }
 export const getEdit = (req, res) => {
     const { id } = req.params;
@@ -31,22 +31,17 @@ export const getUpload = (req, res) => {
 }
 
 export const postUpload = async (req, res) => {
-    // try {
-
+    try {
         const { title, description, hashtags } = req.body;
         await Video.create({
             title,
             description,
             hashtags: hashtags.split(",").map(word => word.trim()).map(word => `#${word}`),
-            createdAt: "Date.now()",
-            meta: {
-                views: 0,
-                rating: 0
-            }
+            createdAt: Date.now()
         })
-    // }
-    // catch {
-
-    // }
-    return res.redirect("/");
+        return res.redirect("/");
+    }
+    catch(error) {
+        return res.render("upload", { pageTitle: "Upload Video", errorMessage: error._message})
+    }
 }
