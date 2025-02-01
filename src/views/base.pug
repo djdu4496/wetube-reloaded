@@ -12,6 +12,8 @@ html(lang="ko")
                         a(href= "/videos/upload") #{url !== "/videos/upload" ? "Upload Video" : ""}
                     li
                         a(href="/") #{url !== "/" ? "Home" : ""}
+                    li
+                        a(href="/search") #{url !== "/search" ? "Search" : ""}
         main 
             block content
     include partials/footer.pug
