@@ -7,7 +7,7 @@ export const home = async (req, res) => {
         res.render("home", {pageTitle: "Home", videos});
     }
     catch {
-        return res.render("server-error");
+        return res.status(404).render("server-error");
     }
 }
 export const watch = async (req, res) => {
@@ -59,7 +59,7 @@ export const postUpload = async (req, res) => {
         return res.redirect("/");
     }
     catch(error) {
-        return res.render("upload", { pageTitle: "Upload Video", errorMessage: error._message})
+        return res.status(404).render("upload", { pageTitle: "Upload Video", errorMessage: error._message})
     }
 }
 
