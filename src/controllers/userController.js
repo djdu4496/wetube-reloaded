@@ -118,7 +118,17 @@ export const finishGithubLogin = async (req, res) => {
 export const getEdit = (req, res) => {
   return res.render("edit-profile", {pageTitle: "Edit Profile"});
 }
-export const postEdit = (req, res) => {
+export const postEdit = async (req, res) => {
+  const { 
+    session: { 
+      user: { _id } 
+    }, 
+    body: { email, username, name, location},
+  }= req; 
+  console.log(req.session.user);
+  await User.findByIdAndUpdate(_id, {
+    email, username, name, location
+  });
   return res.render("edit-profile");
 }
 export const remove = (req, res) => res.send("Delete User.");
