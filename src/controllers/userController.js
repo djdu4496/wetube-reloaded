@@ -125,11 +125,15 @@ export const postEdit = async (req, res) => {
     }, 
     body: { email, username, name, location},
   }= req; 
-  console.log(req.session.user);
-  await User.findByIdAndUpdate(_id, {
-    email, username, name, location
-  });
-  return res.render("edit-profile");
+  const updatedUser = await User.findByIdAndUpdate(
+	  _id, 
+	  {
+	    email, username, name, location
+	  },
+	  { new: true }
+	);
+  req.session.user = updatedUser;
+  return res.redirect("/users/edit");
 }
 export const remove = (req, res) => res.send("Delete User.");
 export const logout = (req, res) => {
